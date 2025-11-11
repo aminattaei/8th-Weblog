@@ -1,5 +1,4 @@
 # 8th-Weblog
-# NewApplication
 
 A Django-based blog website featuring a Persian company template, designed for publishing articles with user authentication and media management.
 
