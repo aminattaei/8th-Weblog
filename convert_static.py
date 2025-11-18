@@ -27,14 +27,14 @@ def convert_all_templates(folder):
                 # Convert href attributes for CSS, JS, HTML files
                 content = re.sub(
                     r'href="([^"]+\.(css|js|html))"',
-                    lambda m: f'href="{{% static \'{m.group(1)}\' %}}"',
-                    content
+                    lambda m: f"href=\"{{% static '{m.group(1)}' %}}\"",
+                    content,
                 )
                 # Convert src attributes for JS, CSS, images
                 content = re.sub(
                     r'src="([^"]+\.(js|css|png|jpg|jpeg|gif|svg|webp))"',
-                    lambda m: f'src="{{% static \'{m.group(1)}\' %}}"',
-                    content
+                    lambda m: f"src=\"{{% static '{m.group(1)}' %}}\"",
+                    content,
                 )
 
                 # Add {% load static %} tag if not present
@@ -45,6 +45,7 @@ def convert_all_templates(folder):
                 with open(path, "w", encoding="utf-8") as file:
                     file.write(content)
                 print(f"✅ fixed: {path}")
+
 
 # Usage: Convert templates in the 'templates' folder
 convert_all_templates("templates")

@@ -15,19 +15,40 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Article',
+            name="Article",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50, unique=True)),
-                ('content', models.TextField()),
-                ('created_time', models.DateField(auto_now_add=True, verbose_name='date to create')),
-                ('updated_time', models.DateField(auto_now=True, verbose_name='date t update')),
-                ('picture', models.ImageField(upload_to='Articles/Pictures/')),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='articles')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50, unique=True)),
+                ("content", models.TextField()),
+                (
+                    "created_time",
+                    models.DateField(auto_now_add=True, verbose_name="date to create"),
+                ),
+                (
+                    "updated_time",
+                    models.DateField(auto_now=True, verbose_name="date t update"),
+                ),
+                ("picture", models.ImageField(upload_to="Articles/Pictures/")),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="articles",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Article',
-                'verbose_name_plural': 'Articles',
+                "verbose_name": "Article",
+                "verbose_name_plural": "Articles",
             },
         ),
     ]

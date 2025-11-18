@@ -1,0 +1,230 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }}</title>
+
+    <!-- فونت جذاب و استاندارد -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: "Vazirmatn", sans-serif;
+            background: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.07);
+        }
+
+        .article-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #222;
+            line-height: 1.5;
+        }
+
+        .article-image {
+            width: 100%;
+            border-radius: 16px;
+            margin: 25px 0;
+            object-fit: cover;
+        }
+
+        .article-content {
+            font-size: 18px;
+            color: #333;
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        /* کامنت‌ها */
+        .comments-box {
+            margin-top: 50px;
+        }
+
+        .comments-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .comment-card {
+            background: #fafafa;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .comment-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+        }
+
+        .comment-card strong {
+            font-size: 17px;
+            color: #222;
+        }
+
+        .comment-card p {
+            margin-top: 8px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* فرم نظرات */
+        .comment-form {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            margin-top: 35px;
+        }
+
+        .comment-form h3 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background: #fafafa;
+        }
+
+        textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            background: #4c8bf5;
+            border: none;
+            color: #fff;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #3b73d6;
+        }
+
+        
+        .message {
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        .message.success { background: #e8f9e9; border-right: 4px solid #28a745; }
+        .message.error { background: #fdeaea; border-right: 4px solid #dc3545; }
+
+    </style>
+</head>
+
+
+
+
+
+<body>
+
+    <div class="container">
+
+        <!-- پیام‌ها -->
+        {% if messages %}
+            {% for m in messages %}
+                <div class="message {% if m.tags %}{{ m.tags }}{% endif %}">{{ m }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- عنوان -->
+        <h1 class="article-title">{{ article.title }}</h1>
+
+        <!-- تصویر -->
+        {% if article.picture %}
+            <img src="{{ article.picture.url }}" class="article-image">
+        {% endif %}
+
+        <!-- متن مقاله -->
+        <div class="article-content">
+            {{ article.content|safe }}
+        </div>
+
+        <!-- لیست کامنت‌ها -->
+        <div class="comments-box">
+            <h2 class="comments-title">نظرات کاربران</h2>
+
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="comment-card">
+                        <strong>{{ comment.user_name }}</strong>
+                        <p>{{ comment.user_comment }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>هنوز نظری ثبت نشده است.</p>
+            {% endif %}
+        </div>
+
+        <!-- فرم ثبت نظر -->
+        <div class="comment-form">
+            <h3>ارسال نظر</h3>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>نام شما:</label>
+                    {{ form.user_name }}
+                </div>
+
+                <div class="form-group">
+                    <label>ایمیل:</label>
+                    {{ form.user_email }}
+                </div>
+
+                <div class="form-group">
+                    <label>متن نظر:</label>
+                    {{ form.user_comment }}
+                </div>
+
+                <button class="submit-btn">ثبت نظر</button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

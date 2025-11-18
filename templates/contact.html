@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}ارتباط با ما{% endblock title %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <form action="{% url 'contact' %}" method="post" class="p-4 shadow rounded bg-white">
+                {% csrf_token %}
+
+                <h4 class="mb-4 text-center">فرم تماس با ما</h4>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">ایمیل</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="email" 
+                        name="email"
+                        placeholder="ایمیل خود را وارد کنید"
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="full_name" class="form-label">نام و نام خانوادگی</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="full_name" 
+                        name="full_name"
+                        placeholder="نام کامل شما"
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="message" class="form-label">پیام</label>
+                    <textarea 
+                        class="form-control" 
+                        id="message" 
+                        name="message" 
+                        rows="4"
+                        placeholder="متن پیام شما..."
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">ارسال پیام</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
